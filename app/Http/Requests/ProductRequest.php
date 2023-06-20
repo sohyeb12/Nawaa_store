@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
@@ -21,10 +22,10 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('product',0);
+        $product = $this->route('product',new Product());
         return [
             'name' => 'required|max:255|min:3',
-            'slug' => "required|unique:products,slug,$id",
+            'slug' => "required|unique:products,slug,$product->id",
             'category_id' => 'nullable|int|exists:categories,id',
             'description' => 'nullable|string',
             'short_description' =>  'nullable|string|max:500',

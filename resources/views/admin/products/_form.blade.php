@@ -110,11 +110,9 @@
 
         <div class="mb-3">
             <label for="image">Product Image : </label>
-            @if($product->image)
-            <img src="{{ Storage::disk('public')->url($product->image) }}" alt="">
-            @else
-            <img src="https://placehold.co/100x100" alt="">
-            @endif
+            
+            <img src="{{ $product->image_url }}" alt="" width="100">
+            
             <div>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" width="100" id="image" name="image" placeholder="Product Image">
                 @error('image')

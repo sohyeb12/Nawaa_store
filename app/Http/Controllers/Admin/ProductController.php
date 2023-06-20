@@ -87,9 +87,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        $product = Product::findOrFail($id);
+        // $product = Product::findOrFail($id);
         $cateogry = Category::all();
         // if(!$product){
         //     abort(404);
@@ -104,13 +104,13 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductRequest $request, string $id)
+    public function update(ProductRequest $request, Product $product)
     {
         // $rules = $this->rules($id);
         // $messages = $this->messages();
         // $request->validate($rules,$messages);
 
-        $product = Product::findOrFail($id);
+        // $product = Product::findOrFail($id);
         $data = $request->validated();
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -141,11 +141,11 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
         // Product::where('id','=',$id)->delete();
         // Product::destroy($id);
-        $product = Product::findOrFail($id);
+        // $product = Product::findOrFail($id);
         $product->delete();
         if($product->image){
             Storage::disk('public')->delete($product->image);

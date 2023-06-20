@@ -20,6 +20,7 @@
             <th>Status</th>
             <th>Slug</th>
             <th>images</th>
+            <th>Price</th>
             <th></th>
             <th></th>
         </tr>
@@ -38,11 +39,12 @@
                 </a>
 
             </td>
+            <td>${{ $product->price }}</td>
             <td><a href="{{ route('products.edit', $product->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit</a> </td>
             <td>
                 <form action="{{ route('products.destroy', $product->id) }}" method="post">
                     @csrf
-                    @method("DELETE")
+                    @method("delete")
                     <button type="submit" class="btn btn -sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
                 </form>
             </td>

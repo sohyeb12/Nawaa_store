@@ -40,8 +40,8 @@ class Product extends Model
     }
 
     public function getPriceFormattedAttribute(){
-        $formatter = new NumberFormatter(config('app.locale'),NumberFormatter::CURRENCY);
-        return $formatter->formatCurrency($this->price,'EUR');
+        $formatter = new NumberFormatter('en',NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($this->price,'USD');
     }
 
 }
