@@ -33,15 +33,14 @@
             <td>{{ $product->status }}</td>
             <td>{{ $product->slug }}</td>
             <td>
-                @if($product->image)
-                <a href="{{ Storage::disk('public')->url($product->image) }}"></a>
-                <img src="{{ asset('storage/'. $product->image) }}" alt="" width="60"></td>
-                @else
-                <img src="https://placehold.co/60x60" alt="">
-                @endif
+                <a href="{{ $product->image_url }}"> 
+                    <img src="{{ $product->image_url }}" alt="" width="60">
+                </a>
+
+            </td>
             <td><a href="{{ route('products.edit', $product->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit</a> </td>
             <td>
-                <form   action ="{{ route('products.destroy', $product->id) }}" method="post">
+                <form action="{{ route('products.destroy', $product->id) }}" method="post">
                     @csrf
                     @method("DELETE")
                     <button type="submit" class="btn btn -sm btn-danger"><i class="fas fa-trash"></i> Delete</button>

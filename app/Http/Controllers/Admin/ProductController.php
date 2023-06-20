@@ -20,7 +20,7 @@ class ProductController extends Controller
         //
         // SELECT * FROM PRODUCTS
         // $products = DB::table('products')->get(); // Collection Object = array 
-        $products = DB::table('products')->join('categories', 'categories.id', '=', 'products.category_id')
+        $products = Product::leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->select(['products.*', 'categories.name as category_name',])->get();
 
         return view('admin.products.index', [
@@ -104,13 +104,13 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductRequest $request, string $id)
     {
         // $rules = $this->rules($id);
         // $messages = $this->messages();
         // $request->validate($rules,$messages);
 
-        // $product = Product::findOrFail($id);
+        $product = Product::findOrFail($id);
         $data = $request->validated();
         if($request->hasFile('image')){
             $file = $request->file('image');
