@@ -75,6 +75,23 @@
             </div>
         </div>
 
+        <div class="mb-3">
+            <label for="gallery">Gallery Image : </label>
+
+            <div>
+                <input type="file" class="form-control @error('image') is-invalid @enderror" multiple width="100" id="gallery" name="gallery[]" placeholder="Product Image">
+            </div>
+            @if ($gallery)
+            <div class="row">
+                @foreach($gallery as $image)
+                <div class="col-md-3">
+                    <img src="{{ $image->url }}" class="img-fluid" alt="">
+                </div>
+                @endforeach
+            </div>
+            @endif
+        </div>
+
     </div>
 
     <div class="col-md-4">
@@ -110,9 +127,9 @@
 
         <div class="mb-3">
             <label for="image">Product Image : </label>
-            
+
             <img src="{{ $product->image_url }}" alt="" width="100">
-            
+
             <div>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" width="100" id="image" name="image" placeholder="Product Image">
                 @error('image')

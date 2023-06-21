@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -39,6 +40,7 @@ class ProductController extends Controller
         return view('admin.products.create', [
             'product' => new Product(), 'category' => $cateogry,
             'status_options' => Product::status_option(),
+            'gallery' => new ProductImage(),
         ]);
     }
 
@@ -59,6 +61,15 @@ class ProductController extends Controller
             $data['image'] = $path;
         }
         $product = Product::create($data);
+
+        if($request->hasFile('gallery')){
+            foreach($request->input('gallery') as $file){
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => $file->store('uploads/images','public'),
+                ]);
+            }
+        }
         // $product_1 = Product::create($request->only('name','slug'));
         // $product_2 = Product::create($request->except('name','slug'));
 
@@ -94,9 +105,11 @@ class ProductController extends Controller
         // if(!$product){
         //     abort(404);
         // }
+        $gallery = ProductImage::where('product_id', '=', $product->id)->get();
         return view('admin.products.edit', [
             'product' => $product,
             'category' => $cateogry,
+            'gallery' => $gallery ,
             'status_options' => Product::status_option(),
         ]);
     }
@@ -124,6 +137,17 @@ class ProductController extends Controller
             Storage::disk('public')->delete($old_image);
         }
 
+        if($request->hasFile('gallery')){
+            foreach($request->input('gallery') as $file){
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image' => $file->store('uploads/images','public'),
+                ]);
+            }
+        }
+
+        $old_image = $product->image;
+        $product->update($data);
         // $product->name = $request->input('name');
         // $product->price = $request->input('price');
         // $product->category_id = $request->input('category_id');

@@ -33,6 +33,8 @@ class ProductRequest extends FormRequest
             'compare_price' => 'numeric|min:0|gt:price',
             'image' => 'nullable|image|dimensions:min_width=400,min-height:300|max:1024',
             'status' => 'required|in:active,draft,archived',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image',
         ];
     }
 

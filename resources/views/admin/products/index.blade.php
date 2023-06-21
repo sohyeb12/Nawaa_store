@@ -19,7 +19,7 @@
             <th>Created_at</th>
             <th>Status</th>
             <th>Slug</th>
-            <th>images</th>
+            <th>Images</th>
             <th>Price</th>
             <th></th>
             <th></th>
