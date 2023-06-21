@@ -19,12 +19,12 @@ class ProductSeeder extends Seeder
         //     'slug' => 'Loui',
         // ]);
 
-        for ($i=2; $i <= 10 ; $i++) { 
+        for ($i=16; $i <= 19 ; $i++) { 
             DB::table('products')->insert([
                 'name' => 'Products' .$i,
                 'created_at' => now(),
                 'slug' => 'User' . $i,
-                
+                'status' => 'active',
             ]);
         }
     }

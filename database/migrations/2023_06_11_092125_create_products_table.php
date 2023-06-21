@@ -25,7 +25,7 @@ return new class extends Migration
             $table->float('price')->default(0);
             $table->float('compare_price')->nullable();
             $table->string('image',255)->nullable();
-            $table->enum('status',['draft ','active ','archived']);
+            $table->enum('status',['active ','draft ','archived']);
 
             // $table->unsignedBigInteger('category_id');
             // $table->foreign('category_id')->references('id')->on('categories');

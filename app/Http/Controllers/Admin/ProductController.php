@@ -40,7 +40,6 @@ class ProductController extends Controller
         return view('admin.products.create', [
             'product' => new Product(), 'category' => $cateogry,
             'status_options' => Product::status_option(),
-            'gallery' => new ProductImage(),
         ]);
     }
 
@@ -63,7 +62,7 @@ class ProductController extends Controller
         $product = Product::create($data);
 
         if($request->hasFile('gallery')){
-            foreach($request->input('gallery') as $file){
+            foreach($request->file('gallery') as $file){
                 ProductImage::create([
                     'product_id' => $product->id,
                     'image' => $file->store('uploads/images','public'),
@@ -138,7 +137,7 @@ class ProductController extends Controller
         }
 
         if($request->hasFile('gallery')){
-            foreach($request->input('gallery') as $file){
+            foreach($request->file('gallery') as $file){
                 ProductImage::create([
                     'product_id' => $product->id,
                     'image' => $file->store('uploads/images','public'),
@@ -148,6 +147,7 @@ class ProductController extends Controller
 
         $old_image = $product->image;
         $product->update($data);
+
         // $product->name = $request->input('name');
         // $product->price = $request->input('price');
         // $product->category_id = $request->input('category_id');

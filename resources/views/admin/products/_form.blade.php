@@ -79,9 +79,9 @@
             <label for="gallery">Gallery Image : </label>
 
             <div>
-                <input type="file" class="form-control @error('image') is-invalid @enderror" multiple width="100" id="gallery" name="gallery[]" placeholder="Product Image">
+                <input type="file" class="form-control"  width="100" id="gallery" name="gallery[]" multiple placeholder="Product Image">
             </div>
-            @if ($gallery)
+            @if ($gallery ?? false)
             <div class="row">
                 @foreach($gallery as $image)
                 <div class="col-md-3">
