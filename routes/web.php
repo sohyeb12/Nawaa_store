@@ -31,6 +31,13 @@ Route::get('/users/{first}/{last?}',[UserController::class,'show']);
 // Route::get('/admin/products/{id}/edit',[ProductController::class,'edit']);
 // Route::put('/admin/products/{id}',[ProductController::class,'update']);
 // Route::delete('/admin/products/{id}',[ProductController::class,'destroy']);
+Route::get('/admin/products/trashed',[ProductController::class , 'trashed'])->name('products.trashed');
+
+Route::put('/admin/products/{product}/restore',[ProductController::class , 'restore'])->name('products.restore');
+
+Route::delete('/admin/products/{product}/force' , [ProductController::class , 'forceDelete'])->name('products.force-delete');
 
 Route::resource('/admin/products',ProductController::class);
 Route::resource('/admin/categories',CategoryController::class);
+
+

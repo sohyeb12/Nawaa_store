@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use NumberFormatter;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory , SoftDeletes;
 
     const STATUS_ACTIVE = 'active';
     const STATUS_DRAFT = 'draft';
@@ -19,6 +21,23 @@ class Product extends Model
         'name' , 'slug' , 'price' , 'compare_price' , 'description',
         'short_description' , 'category_id' , 'status','image',
     ];
+
+    protected static function booted()
+    {
+        // booted function applied a global scope for the queries 
+        static::addGlobalScope('owner', function(Builder $query){
+            $query->where('user_id','=','1');
+        });
+        
+    }
+
+    public function scopeActive(Builder $query){
+        $query->where('status', '=' , 'active');
+    }
+
+    public function scopeStatus(Builder $query , $status){
+        $query->where('status', '=' , $status);
+    }
 
     public static function status_option(){
         return [
