@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::all()->toQuery()->paginate(7);
 
         return view('admin.categories.index',[
             'intro' => 'Category List',
@@ -91,6 +91,33 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index')->with('done',"Category ({$category->name}) Deleted.");;
     }
+
+    public function trashed()
+    {
+        $categories = Category::onlyTrashed()->paginate();
+
+        return view('admin.categories.trashed' ,[
+            'categories' => $categories ,
+        ]);
+
+    }
+
+    public function restore($id){
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect()->route('categories.index')
+        ->with('success', "Product ({$category->name}) Restored");
+    }
+
+    public function forceDelete($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+        
+        return redirect()->route('categories.index')
+        ->with('success', "Product ({$category->name}) Deleted forever!");
+    }
+
 
     protected function messages(){
         return [

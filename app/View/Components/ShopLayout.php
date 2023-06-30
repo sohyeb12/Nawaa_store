@@ -2,18 +2,21 @@
 
 namespace App\View\Components;
 
+use App\Models\Product;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
 class ShopLayout extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $title;
+    public $showBreadCrumb;
+    
+
+    public function __construct($title = 'Title' , $showBreadCrumb = true )
     {
-        //
+        $this->title = $title;
+        $this->showBreadCrumb = $showBreadCrumb;
     }
 
     /**
@@ -21,6 +24,12 @@ class ShopLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shop-layout');
+        $products = Product::active()
+                    ->latest()
+                    ->limit(8)
+                    ->get();
+        return view('layouts.shop', [
+            'products' => $products,
+        ]);
     }
 }

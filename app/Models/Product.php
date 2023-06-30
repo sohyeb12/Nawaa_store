@@ -25,9 +25,9 @@ class Product extends Model
     protected static function booted()
     {
         // booted function applied a global scope for the queries 
-        static::addGlobalScope('owner', function(Builder $query){
-            $query->where('user_id','=','1');
-        });
+        // static::addGlobalScope('owner', function(Builder $query){
+        //     $query->where('user_id','=','1');
+        // });
         
     }
 
@@ -61,6 +61,11 @@ class Product extends Model
     public function getPriceFormattedAttribute(){
         $formatter = new NumberFormatter('en',NumberFormatter::CURRENCY);
         return $formatter->formatCurrency($this->price,'USD');
+    }
+
+    public function getComparePriceFormattedAttribute(){
+        $formatter = new NumberFormatter('en',NumberFormatter::CURRENCY);
+        return $formatter->formatCurrency($this->compare_price,'USD');
     }
 
 }

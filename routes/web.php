@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,28 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {  // if you write /home the path will be http://127.0.0.1:8000/home
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomeController::class , 'index'])->name('home');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/users',[UserController::class,'index']);
-
-Route::get('/users/{first}/{last?}',[UserController::class,'show']);
-
-// Route::get('/admin/products',[ProductController::class,'index']);
-// Route::get('/admin/products/create',[ProductController::class,'create']);
-// Route::post('/admin/products/create',[ProductController::class,'store']);
-// Route::get('/admin/products/{id}',[ProductController::class,'show']);
-// Route::get('/admin/products/{id}/edit',[ProductController::class,'edit']);
-// Route::put('/admin/products/{id}',[ProductController::class,'update']);
-// Route::delete('/admin/products/{id}',[ProductController::class,'destroy']);
-Route::get('/admin/products/trashed',[ProductController::class , 'trashed'])->name('products.trashed');
-
-Route::put('/admin/products/{product}/restore',[ProductController::class , 'restore'])->name('products.restore');
-
-Route::delete('/admin/products/{product}/force' , [ProductController::class , 'forceDelete'])->name('products.force-delete');
-
-Route::resource('/admin/products',ProductController::class);
-Route::resource('/admin/categories',CategoryController::class);
-
+require __DIR__.'/auth.php';
+require __DIR__.'/admin.php';
+require __DIR__.'/shop.php'; 
 
