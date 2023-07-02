@@ -6,7 +6,7 @@
         <form action="<?= route('users.update', $user->id) ?>" method="post">
             @csrf
             @method('put')
-            @include('admin.users._form',['btn_submit' => 'Update'])
+            @include('admin.users.update',['btn_submit' => 'Update'])
 
         </form>
 @endsection

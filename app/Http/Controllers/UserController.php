@@ -64,7 +64,9 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Created");
     }
 
-    public function edit(User $user){
+    public function edit($id){
+
+        $user = User::findOrFail($id);
         return view('admin.users.edit', [
             'user' => $user,
             'status_options' => User::status_option(),
@@ -72,9 +74,30 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserRequest $request , User $user){
-        $data = $request->validated();
-        $user->update($data);
+    public function update(Request $request , $id){
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'old_password' => ['required' , 'min:6' , 'max:100'],
+            'new_password' => ['required' , 'confirmed' , Rules\Password::defaults()],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'type' => ['required','in:user,admin,super-admin'],
+            'status' => ['required','in:active,inactive,blocked'],
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if(Hash::check($request->old_password , $user->password)){
+            $user->update([
+                'password' => Hash::make($request->password),
+                'name'     =>  $request->input("name"),
+                'type'      =>   $request->input("type"),
+                'status'       =>   $request->input("status"),
+            ]);
+        }
+        else {
+            return redirect()->back()->with('error','There is error in Old Password!!');
+        }
+
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Updated");
     }
 
