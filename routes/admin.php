@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth' , 'auth.ensuretype:admin,super-admin'])->group(function () {
 
     // Categories Routes
     Route::get('/admin/categories/trashed', [CategoryController::class, 'trashed'])->name('categories.trashed');

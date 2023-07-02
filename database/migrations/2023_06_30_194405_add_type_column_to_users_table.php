@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('type',['']);
+            $table->enum('type',['user' , 'admin', 'super-admin'])
+            ->default('user')
+            ->after('remember_token');
+
+            $table->enum('status',['active','inactive','blocked'])
+            ->default('active')
+            ->after('type');
         });
     }
 
@@ -22,7 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn(['type' , 'status']);
         });
     }
 };

@@ -4,14 +4,22 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INACTIVE = 'inactive';
+    const STATUS_BLOCKED = 'blocked';
+    
+    const USER_TYPE = 'user';
+    const ADMIN_TYPE = 'admin';
+    const SUPER_ADMIN_TYPE = 'super-admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type',
+        'status',
     ];
 
     /**
@@ -42,4 +52,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function status_option(){
+        return [
+            self::STATUS_ACTIVE => 'Active',
+            self::STATUS_INACTIVE => 'In-Active',
+            self::STATUS_BLOCKED => 'Blocked',
+        ];
+    }
+
+    public static function user_types(){
+        return [
+            self::USER_TYPE => 'User',
+            self::ADMIN_TYPE => 'Admin',
+            self::SUPER_ADMIN_TYPE => 'Super-Admin',
+        ];
+    }
 }
