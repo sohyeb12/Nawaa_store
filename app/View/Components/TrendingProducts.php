@@ -17,6 +17,7 @@ class TrendingProducts extends Component
         $this->title = $title;
         $this->products =  Product::withoutGlobalScope('owner')
         ->active()
+        ->with('category')
         ->latest('updated_at')
         ->take($count)
         ->get();

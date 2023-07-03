@@ -27,6 +27,7 @@
             <th>Created_at</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -38,7 +39,7 @@
             <td>{{ $user->created_at }}</td>
 
 
-            <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit</a> </td>
+            <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit User Info</a> </td>
             <td>
                 <form action="{{ route('users.destroy', $user->id) }}" method="post">
                     @csrf
@@ -46,6 +47,7 @@
                     <button type="submit" class="btn btn -sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
                 </form>
             </td>
+            <td><a href="{{ route('users.edit-password' , $user->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit Password</a> </td>
         </tr>
         @endforeach
     </tbody>

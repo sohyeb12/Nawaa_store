@@ -1,4 +1,4 @@
-<x-shop-layout title="home" :show-bread-crumb="false">
+<x-shop-layout title="home" :show-bread-crumb="true" bread-crumb-value=" ">
     <div>
         <!-- Start Hero Area -->
         <section class="hero-area">

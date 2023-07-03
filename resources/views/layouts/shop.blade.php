@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/new.css') }}" />
 
 </head>
 
@@ -42,6 +43,7 @@
     <header class="header navbar-area">
         <!-- Start Topbar -->
         <div class="topbar">
+            <!--  -->
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-4 col-md-4 col-12">
@@ -275,7 +277,7 @@
                                     <li class="nav-item">
                                         <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Shop</a>
                                         <ul class="sub-menu collapse" id="submenu-1-3">
-                                            <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
+                                            <li class="nav-item"><a href="{{ route('grid.products') }}">Shop Grid</a></li>
                                             <li class="nav-item"><a href="product-list.html">Shop List</a></li>
                                             <li class="nav-item"><a href="product-details.html">shop Single</a></li>
                                             <li class="nav-item"><a href="cart.html">Cart</a></li>
@@ -341,7 +343,7 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                        <li>{{ $title }}</li>
+                        <li>{{ $breadCrumbValue }}</li>
                     </ul>
                 </div>
             </div>

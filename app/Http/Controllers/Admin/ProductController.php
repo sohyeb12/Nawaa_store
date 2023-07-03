@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,7 @@ class ProductController extends Controller
         // $products = DB::table('products')->get(); // Collection Object = array 
         $products = Product::leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->select(['products.*', 'categories.name as category_name',])
-            ->withoutGlobalScope('owner')  //we use it to reject the Global Scope 
+            // ->withoutGlobalScope('owner')  //we use it to reject the Global Scope 
             // ->active()
             // ->status('archived')
             ->paginate(5); // paginate function show the index 
@@ -63,6 +64,7 @@ class ProductController extends Controller
             $path = $file->store('uploads/images', 'public');
             $data['image'] = $path;
         }
+        $data['user_id'] = Auth::id();
         $product = Product::create($data);
 
         if ($request->hasFile('gallery')) {

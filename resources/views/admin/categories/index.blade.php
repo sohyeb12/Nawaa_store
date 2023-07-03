@@ -24,6 +24,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Created_at</th>
+            <th>Products #</th>
             <th></th>
             <th></th>
         </tr>
@@ -34,7 +35,7 @@
             <td>{{ $cateogry->id }}</td>
             <td>{{ $cateogry->name }}</td>
             <td>{{ $cateogry->created_at }}</td>
-
+            <td>{{ $cateogry->products_count }}</td>
 
             <td><a href="{{ route('categories.edit', $cateogry->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit</a> </td>
             <td>

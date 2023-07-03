@@ -56,11 +56,6 @@ class UserController extends Controller
             'status' => $request->status,
         ]);
 
-        // event(new Registered($user));
-
-        // Auth::login($user);
-
-        // return redirect()->route('home');
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Created");
     }
 
@@ -74,30 +69,26 @@ class UserController extends Controller
         ]);
     }
 
+    // 'old_password' => ['required' , 'min:6' , 'max:100'],
+    // 'new_password' => ['required' , 'confirmed' , Rules\Password::defaults()],
+
     public function update(Request $request , $id){
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'old_password' => ['required' , 'min:6' , 'max:100'],
-            'new_password' => ['required' , 'confirmed' , Rules\Password::defaults()],
             'email' => ['required', 'string', 'email', 'max:255'],
             'type' => ['required','in:user,admin,super-admin'],
             'status' => ['required','in:active,inactive,blocked'],
         ]);
 
         $user = User::findOrFail($id);
-
-        if(Hash::check($request->old_password , $user->password)){
-            $user->update([
-                'password' => Hash::make($request->password),
-                'name'     =>  $request->input("name"),
-                'type'      =>   $request->input("type"),
-                'status'       =>   $request->input("status"),
-            ]);
-        }
-        else {
-            return redirect()->back()->with('error','There is error in Old Password!!');
-        }
-
+        
+        $user->update([
+            'email' => $request->input("email"),
+            'name' =>  $request->input("name"),
+            'type' =>   $request->input("type"),
+            'status' =>   $request->input("status"),
+        ]);
+    
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Updated");
     }
 

@@ -27,33 +27,6 @@
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="old_password">Old Password: </label>
-            <div>
-                <input type="password" class="form-control @error('old_password') is-invalid @enderror" id="old_password" name="old_password" value="" placeholder="Enter Old Password User">
-                @error('old_password')
-                <p class="invalid-feedback">{{$message}}</p>
-                @enderror
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="new_password">New Password: </label>
-            <div>
-                <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password" value="" placeholder="Enter New password User">
-                @error('new_password')
-                <p class="invalid-feedback">{{$message}}</p>
-                @enderror
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="new_password_confirmation">Confirm User: </label>
-            <div>
-                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" placeholder="Confirm Password:">
-            </div>
-        </div>
-
 
         <div class="mb-3">
             <label for="status">Status: </label>

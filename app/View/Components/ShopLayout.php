@@ -11,12 +11,13 @@ class ShopLayout extends Component
 {
     public $title;
     public $showBreadCrumb;
-    
+    public $breadCrumbValue;
 
-    public function __construct($title = 'Title' , $showBreadCrumb = true )
+    public function __construct($title = 'Title' , $showBreadCrumb = true ,  $breadCrumbValue = 'title')
     {
         $this->title = $title;
         $this->showBreadCrumb = $showBreadCrumb;
+        $this->breadCrumbValue = $breadCrumbValue;
     }
 
     /**

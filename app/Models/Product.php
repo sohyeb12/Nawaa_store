@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use NumberFormatter;
 
@@ -19,16 +20,22 @@ class Product extends Model
 
     protected $fillable = [
         'name' , 'slug' , 'price' , 'compare_price' , 'description',
-        'short_description' , 'category_id' , 'status','image',
+        'short_description' , 'category_id' , 'status','image','user_id'
     ];
 
     protected static function booted()
     {
         // booted function applied a global scope for the queries 
-        // static::addGlobalScope('owner', function(Builder $query){
-        //     $query->where('user_id','=','1');
-        // });
+        static::addGlobalScope('owner', function(Builder $query){
+            $query->where('products.user_id','=', Auth::id());
+        });
         
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => 'Uncategorized',
+            ]);
     }
 
     public function scopeActive(Builder $query){
@@ -68,4 +75,7 @@ class Product extends Model
         return $formatter->formatCurrency($this->compare_price,'USD');
     }
 
+    public function gallery(){
+        return $this->hasMany(ProductImage::class);
+    }
 }
