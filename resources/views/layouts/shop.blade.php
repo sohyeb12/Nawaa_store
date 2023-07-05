@@ -88,19 +88,41 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
+                            @auth
+                                <div class="user">
+                                    <i class="lni lni-user"></i>
+                                    {{ Auth::user()->profile->first_name }}
+                                </div>
+                                <ul class="user-login">
+                                    <li>
+                                        <a href="{{ route('profile.edit') }}">Profile</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
+                                    </li>
+                                </ul>
+                                <form id="logoutForm" action="{{ route('logout') }}" method="post" style="display: none;">
+                                    @csrf
+
+                                </form>
+                            </div>
+                        @else
                             <div class="user">
                                 <i class="lni lni-user"></i>
                                 Hello
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="login.html">Sign In</a>
+                                    <a href="{{ route('login') }}">Sign In</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="{{ route('register') }}">Register</a>
                                 </li>
                             </ul>
-                        </div>
+                        @endauth
+
+
                     </div>
                 </div>
             </div>
@@ -351,7 +373,7 @@
     </div>
     <!-- End Breadcrumbs -->
     @endif
-   
+
 
     {{ $slot }}
 
@@ -550,7 +572,6 @@
                 }
             }
         });
-
     </script>
     <script>
         const finaleDate = new Date("February 15, 2023 00:00:00").getTime();

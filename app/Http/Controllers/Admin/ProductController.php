@@ -11,13 +11,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function __construct()
+    {
+        $cateogry = Category::all();
+        View::share([
+            'category' => $cateogry,
+            'status_options' => Product::status_option(),
+        ]);
+    }
+
+    public function index(Request $request)
     {
         //
         // SELECT * FROM PRODUCTS
@@ -27,6 +38,26 @@ class ProductController extends Controller
             // ->withoutGlobalScope('owner')  //we use it to reject the Global Scope 
             // ->active()
             // ->status('archived')
+            // ->when($request->search ?? false , function($query , $value){
+            //     $query->where(function ($query) use ($value){
+            //         $query->where('products.name' , 'LIKE' , "%{$value}%")
+            //     ->orWhere('products.description' , 'LIKE' , "%{$value}%");
+            //     });
+                
+            // })
+            // ->when($request->status ?? false , function($query , $value){
+            //     $query->where('products.status' , '=' , $value);
+            // })
+            // ->when($request->category_id ?? false , function ($query , $value){
+            //     $query->where('products.category_id' , '>=' , $value);
+            // })
+            // ->when($request->price_min ?? false , function ($query , $value){
+            //     $query->where('products.price' , '>=' , $value);
+            // })
+            // ->when($request->price_max ?? false , function ($query , $value){
+            //     $query->where('products.compare_price' , '<=' , $value);
+            // })
+            ->filter($request->query())
             ->paginate(5); // paginate function show the index 
 
         return view('admin.products.index', [
@@ -43,8 +74,7 @@ class ProductController extends Controller
     {
         $cateogry = Category::all();
         return view('admin.products.create', [
-            'product' => new Product(), 'category' => $cateogry,
-            'status_options' => Product::status_option(),
+            'product' => new Product(), 
         ]);
     }
 
@@ -106,7 +136,6 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         // $product = Product::findOrFail($id);
-        $cateogry = Category::all();
         // if(!$product){
         //     abort(404);
         // }
@@ -114,9 +143,8 @@ class ProductController extends Controller
         
         return view('admin.products.edit', [
             'product' => $product,
-            'category' => $cateogry,
             'gallery' => $gallery,
-            'status_options' => Product::status_option(),
+
         ]);
     }
 

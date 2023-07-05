@@ -32,6 +32,27 @@ class Product extends Model
         
     }
 
+    public function scopeFilter(Builder $query, $filters){
+        $query->when($filters['search'] ?? false , function($query , $value){
+            $query->where(function ($query) use ($value){
+                $query->where('products.name' , 'LIKE' , "%{$value}%")
+            ->orWhere('products.description' , 'LIKE' , "%{$value}%");
+            });
+        })
+        ->when($filters['status'] ?? false , function($query , $value){
+            $query->where('products.status' , '=' , $value);
+        })
+        ->when($filters['category_id'] ?? false , function ($query , $value){
+            $query->where('products.category_id' , '=' , $value);
+        })
+        ->when($filters['price_min'] ?? false , function ($query , $value){
+            $query->where('products.price' , '>=' , $value);
+        })
+        ->when($filters['price_max'] ?? false , function ($query , $value){
+            $query->where('products.price' , '<=' , $value);
+        });
+    }
+
     public function category(){
         return $this->belongsTo(Category::class)->withDefault([
             'name' => 'Uncategorized',

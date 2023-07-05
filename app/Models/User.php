@@ -54,7 +54,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public function profile(){
-        return $this->hasOne(Profile::class)->withDefault();
+        return $this->hasOne(Profile::class)->withDefault([
+            'first_name' => 'No Name',
+        ]);
     }
 
     public static function status_option(){
@@ -71,6 +73,21 @@ class User extends Authenticatable implements MustVerifyEmail
             self::ADMIN_TYPE => 'Admin',
             self::SUPER_ADMIN_TYPE => 'Super-Admin',
         ];
+    }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
+    public function cart(){
+        return $this->belongsToMany(
+            Product::class,
+            'carts',
+            'user_id',
+            'product_id',
+            'id',
+            'id',
+        );
     }
     
 }

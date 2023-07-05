@@ -268,49 +268,54 @@
                     <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="review-name">Your Name</label>
-                                <input class="form-control" type="text" id="review-name" required>
+                <form action="{{ route('products.review' , $product->slug) }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="review-name">Your Name</label>
+                                    <input class="form-control" value="{{ Auth::user()->profile->first_name }}" type="text" id="review-name" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="review-email">Your Email</label>
+                                    <input class="form-control" value="{{ Auth::user()->email }}" type="email" id="review-email" required>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="review-email">Your Email</label>
-                                <input class="form-control" type="email" id="review-email" required>
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="review_rating">Rating</label>
+                                    <select name="review_rating" class="form-control" id="review_rating">
+                                        <option>Take Rating</option>
+                                        <option value="5">5 Stars</option>
+                                        <option value="4">4 Stars</option>
+                                        <option value="3">3 Stars</option>
+                                        <option value="2">2 Stars</option>
+                                        <option value="1">1 Star</option>
+                                    </select>
+                                    @error('review_rating')
+                                    <p class="invalid-feedback">{{$message}}</p>
+                                    @enderror
+                                </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_review">Review</label>
+                            <textarea class="form-control" id="user_review" name="user_review" rows="8"></textarea>
+                            @error('user_review')
+                            <p class="invalid-feedback">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="review-subject">Subject</label>
-                                <input class="form-control" type="text" id="review-subject" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="review-rating">Rating</label>
-                                <select class="form-control" id="review-rating">
-                                    <option>5 Stars</option>
-                                    <option>4 Stars</option>
-                                    <option>3 Stars</option>
-                                    <option>2 Stars</option>
-                                    <option>1 Star</option>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="modal-footer button">
+                        <button type="submit" class="btn">Submit Review</button>
                     </div>
-                    <div class="form-group">
-                        <label for="review-message">Review</label>
-                        <textarea class="form-control" id="review-message" rows="8" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer button">
-                    <button type="button" class="btn">Submit Review</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
