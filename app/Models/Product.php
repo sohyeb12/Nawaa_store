@@ -23,14 +23,14 @@ class Product extends Model
         'short_description' , 'category_id' , 'status','image','user_id'
     ];
 
-    protected static function booted()
-    {
-        // booted function applied a global scope for the queries 
-        static::addGlobalScope('owner', function(Builder $query){
-            $query->where('products.user_id','=', Auth::id());
-        });
+    // protected static function booted()
+    // {
+    //     // booted function applied a global scope for the queries 
+    //     static::addGlobalScope('owner', function(Builder $query){
+    //         $query->where('products.user_id','=', Auth::id());
+    //     });
         
-    }
+    // }
 
     public function scopeFilter(Builder $query, $filters){
         $query->when($filters['search'] ?? false , function($query , $value){
@@ -57,6 +57,23 @@ class Product extends Model
         return $this->belongsTo(Category::class)->withDefault([
             'name' => 'Uncategorized',
             ]);
+    }
+
+    public function cart(){
+        return $this->belongsToMany(
+            User::class,     // Related Model (Product)
+            'carts',         // Pivot table (defualt= product_user)
+            'product_id',   // FK current in model in pivot table
+            'user_id',      // FK related model in pivot table
+            'id',           // PK current model 
+            'id',           // PK for related model
+        )->withPivot(['quantity'])
+        ->withTimestamps()
+        ->using(Cart::class);
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
     }
 
     public function scopeActive(Builder $query){

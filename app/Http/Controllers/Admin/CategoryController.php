@@ -14,10 +14,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all()->toQuery()->paginate(7);
-        // $categories = Category::withCount('products')->paginate(5);
+        // $categories_1 = Category::withCount('products')->paginate(5);
         return view('admin.categories.index',[
             'intro' => 'Category List',
             'categories' => $categories,
+            
         ]);
     }
 

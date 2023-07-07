@@ -25,224 +25,190 @@
                             <h3 class="price">{{ $product->price_formatted }}
                                 @if($product->compare_price)<span>{{ $product->compare_price_formatted }}</span>@endif </h3>
                             <p class="info-text">{{ $product->short_description }}</p>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group color-option">
-                                        <label class="title-label" for="size">Choose color</label>
-                                        <div class="single-checkbox checkbox-style-1">
-                                            <input type="checkbox" id="checkbox-1" checked>
-                                            <label for="checkbox-1"><span></span></label>
+                            <form action="{{ route('cart.store') }}" method="post">
+                                @csrf
+                                <div class="row">
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group color-option">
+                                            <label class="title-label" for="size">Choose color</label>
+                                            <div class="single-checkbox checkbox-style-1">
+                                                <input type="checkbox" id="checkbox-1" checked>
+                                                <label for="checkbox-1"><span></span></label>
+                                            </div>
+                                            <div class="single-checkbox checkbox-style-2">
+                                                <input type="checkbox" id="checkbox-2">
+                                                <label for="checkbox-2"><span></span></label>
+                                            </div>
+                                            <div class="single-checkbox checkbox-style-3">
+                                                <input type="checkbox" id="checkbox-3">
+                                                <label for="checkbox-3"><span></span></label>
+                                            </div>
+                                            <div class="single-checkbox checkbox-style-4">
+                                                <input type="checkbox" id="checkbox-4">
+                                                <label for="checkbox-4"><span></span></label>
+                                            </div>
                                         </div>
-                                        <div class="single-checkbox checkbox-style-2">
-                                            <input type="checkbox" id="checkbox-2">
-                                            <label for="checkbox-2"><span></span></label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group">
+                                            <label for="color">Battery capacity</label>
+                                            <select class="form-control" id="color">
+                                                <option>5100 mAh</option>
+                                                <option>6200 mAh</option>
+                                                <option>8000 mAh</option>
+                                            </select>
                                         </div>
-                                        <div class="single-checkbox checkbox-style-3">
-                                            <input type="checkbox" id="checkbox-3">
-                                            <label for="checkbox-3"><span></span></label>
-                                        </div>
-                                        <div class="single-checkbox checkbox-style-4">
-                                            <input type="checkbox" id="checkbox-4">
-                                            <label for="checkbox-4"><span></span></label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group quantity">
+                                            <label for="color">Quantity</label>
+                                            <select name="quantity" class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group">
-                                        <label for="color">Battery capacity</label>
-                                        <select class="form-control" id="color">
-                                            <option>5100 mAh</option>
-                                            <option>6200 mAh</option>
-                                            <option>8000 mAh</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="form-group quantity">
-                                        <label for="color">Quantity</label>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
+                                <div class="bottom-content">
+                                    <div class="row align-items-end">
+                                        <div class="col-lg-4 col-md-4 col-12">
+                                            <div class="button cart-button">
+                                                <button type="submit" class="btn" style="width: 100%;">Add to Cart</button>
+                                            </div>
+                                        </div>
+                            </form>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="wish-button">
+                                    <button class="btn"><i class="lni lni-reload"></i> Compare</button>
                                 </div>
                             </div>
-                            <div class="bottom-content">
-                                <div class="row align-items-end">
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="button cart-button">
-                                            <button class="btn" style="width: 100%;">Add to Cart</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="wish-button">
-                                            <button class="btn"><i class="lni lni-reload"></i> Compare</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="wish-button">
-                                            <button class="btn"><i class="lni lni-heart"></i> To Wishlist</button>
-                                        </div>
-                                    </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="wish-button">
+                                    <button class="btn"><i class="lni lni-heart"></i> To Wishlist</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="product-details-info">
-                <div class="single-block">
-                    <div class="row">
-                        <div class="col-lg-6 col-12">
-                            <div class="info-body custom-responsive-margin">
-                                {{ $product->description }}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="info-body">
-                                <h4>Specifications</h4>
-                                <ul class="normal-list">
-                                    <li><span>Weight:</span> 35.5oz (1006g)</li>
-                                    <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                                    <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                                    <li><span>Operating Frequency:</span> 2.4GHz</li>
-                                    <li><span>Manufacturer:</span> GoPro, USA</li>
-                                </ul>
-                                <h4>Shipping Options:</h4>
-                                <ul class="normal-list">
-                                    <li><span>Courier:</span> 2 - 4 days, $22.50</li>
-                                    <li><span>Local Shipping:</span> up to one week, $10.00</li>
-                                    <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-                                    <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        </div>
+        <div class="product-details-info">
+            <div class="single-block">
                 <div class="row">
-                    <div class="col-lg-4 col-12">
-                        <div class="single-block give-review">
-                            <h4>4.5 (Overall)</h4>
-                            <ul>
-                                <li>
-                                    <span>5 stars - 38</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                </li>
-                                <li>
-                                    <span>4 stars - 10</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                                <li>
-                                    <span>3 stars - 3</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                                <li>
-                                    <span>2 stars - 1</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                                <li>
-                                    <span>1 star - 0</span>
-                                    <i class="lni lni-star-filled"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                    <i class="lni lni-star"></i>
-                                </li>
-                            </ul>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Leave a Review
-                            </button>
+                    <div class="col-lg-6 col-12">
+                        <div class="info-body custom-responsive-margin">
+                            {{ $product->description }}
                         </div>
                     </div>
-                    <div class="col-lg-8 col-12">
-                        <div class="single-block">
-                            <div class="reviews">
-                                <h4 class="title">Latest Reviews</h4>
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="https://via.placeholder.com/150x150" alt="#">
-                                    <div class="review-info">
-                                        <h4>Awesome quality for the price
-                                            <span>Jacob Hammond
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="https://via.placeholder.com/150x150" alt="#">
-                                    <div class="review-info">
-                                        <h4>My husband love his new...
-                                            <span>Alex Jaza
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="https://via.placeholder.com/150x150" alt="#">
-                                    <div class="review-info">
-                                        <h4>I love the built quality...
-                                            <span>Jacob Hammond
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
-                            </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="info-body">
+                            <h4>Specifications</h4>
+                            <ul class="normal-list">
+                                <li><span>Weight:</span> 35.5oz (1006g)</li>
+                                <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
+                                <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
+                                <li><span>Operating Frequency:</span> 2.4GHz</li>
+                                <li><span>Manufacturer:</span> GoPro, USA</li>
+                            </ul>
+                            <h4>Shipping Options:</h4>
+                            <ul class="normal-list">
+                                <li><span>Courier:</span> 2 - 4 days, $22.50</li>
+                                <li><span>Local Shipping:</span> up to one week, $10.00</li>
+                                <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
+                                <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                    <div class="single-block give-review">
+                        <h4>{{ round($var->ComputeAverage($product->id)) }} (Overall)</h4>
+                        <ul>
+                            <li>
+                                <span>5 stars - {{ $var->CountReviews($product->id , 5) }}</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                            </li>
+                            <li>
+                                <span>4 stars - {{ $var->CountReviews($product->id , 4) }}</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                            <li>
+                                <span>3 stars - {{ $var->CountReviews($product->id , 3) }}</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                            <li>
+                                <span>2 stars - {{ $var->CountReviews($product->id , 2) }}</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                            <li>
+                                <span>1 star - {{ $var->CountReviews($product->id , 1) }}</span>
+                                <i class="lni lni-star-filled"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                                <i class="lni lni-star"></i>
+                            </li>
+                        </ul>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Leave a Review
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-12">
+                    <div class="single-block">
+                        <div class="reviews">
+                            <h4 class="title">Latest Reviews</h4>
+                            @foreach($reviews as $review)
+                            <!-- Start Single Review -->
+                            <div class="single-review">
+                                <img src="https://via.placeholder.com/150x150" alt="#">
+                                <div class="review-info">
+                                    <h4>
+                                        {{ $review->user->name }}
+
+                                    </h4>
+                                    <ul class="stars">
+                                        @for($i=0; $i < $review->review_rating ; $i++)
+                                            <li><i class="lni lni-star-filled"></i></li>
+                                            @endfor
+
+                                            @for($i=0; $i < (5 - $review->review_rating) ; $i++)
+                                                <li><i class="lni lni-star"></i></li>
+                                                @endfor
+                                    </ul>
+                                    <p>{{ $review->user_review }}</p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 
         <div style="margin-left: 100px;">

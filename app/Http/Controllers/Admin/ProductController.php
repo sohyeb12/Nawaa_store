@@ -35,7 +35,7 @@ class ProductController extends Controller
         // $products = DB::table('products')->get(); // Collection Object = array 
         $products = Product::leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->select(['products.*', 'categories.name as category_name',])
-            // ->withoutGlobalScope('owner')  //we use it to reject the Global Scope 
+            ->withoutGlobalScope('owner')  //we use it to reject the Global Scope 
             // ->active()
             // ->status('archived')
             // ->when($request->search ?? false , function($query , $value){

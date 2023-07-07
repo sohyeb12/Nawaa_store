@@ -12,13 +12,23 @@ class Cart extends Pivot
     use HasFactory;
     use HasUuids;
 
+    protected $table = 'carts';
+
     protected $fillable = [
-        'cookie_id','user_id' , 'product_id','quantity'
+        'cooke_id','user_id' , 'product_id','quantity'
     ];
 
-    public function uniqueId(){
-        return [
-            'id','cookie_id'
-        ];
+    // public function uniqueIds(){
+    //     return [
+    //         'id','cookie_id'
+    //     ];
+    // }
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class)->withDefault();
     }
 }

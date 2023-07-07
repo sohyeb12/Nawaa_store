@@ -12,7 +12,7 @@ class ReviewController extends Controller
 {
 
     public function index(){
-        $reviews = Review::all();
+        $reviews = Review::latest('created_at')->take(5);
         return('admin.reviews.index');
     }
 
@@ -47,7 +47,7 @@ class ReviewController extends Controller
     }
 
     public function update(Request $request , Review $review ){
-
+        
     }
 
     public function destroy(Review $review){
