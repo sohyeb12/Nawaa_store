@@ -8,12 +8,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
-
+use NumberFormatter;
 
 class CartController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $cookie_id = $request->cookie('cart_id');
+        $cart = Cart::with('product')->where('cooke_id', '=', $cookie_id)->get();
+        
+        // $total = 0;
+        // foreach($cart as $item){
+        //     $total += $item->product->price * $item->quantity;
+        // }
+
+        $total = $cart->sum(function($item){
+            return $item->product->price * $item->quantity;
+        });
+
+        $formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
+        
+        return view('shop.cart',[
+            'cart' => $cart,
+            'total' => $formatter->formatCurrency($total,'USD'),
+        ]);
     }
 
     public function store(Request $request)
