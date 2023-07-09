@@ -129,7 +129,7 @@
             <div class="row">
                 <div class="col-lg-4 col-12">
                     <div class="single-block give-review">
-                        <h4>{{ round($var->ComputeAverage($product->id)) }} (Overall)</h4>
+                        <h4>{{ $var->ComputeAverage($product->id) }} (Overall)</h4>
                         <ul>
                             <li>
                                 <span>5 stars - {{ $var->CountReviews($product->id , 5) }}</span>

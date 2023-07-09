@@ -89,43 +89,43 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
                             @auth
-                                <div class="user">
-                                    <i class="lni lni-user"></i>
-                                    {{ Auth::user()->profile->first_name }}
-                                </div>
-                                <ul class="user-login">
-                                    <li>
-                                        <a href="{{ route('profile.edit') }}">Profile</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
-                                    </li>
-                                </ul>
-                                <form id="logoutForm" action="{{ route('logout') }}" method="post" style="display: none;">
-                                    @csrf
-
-                                </form>
-                            </div>
-                        @else
                             <div class="user">
                                 <i class="lni lni-user"></i>
-                                Hello
+                                {{ Auth::user()->profile->first_name }}
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="{{ route('login') }}">Sign In</a>
+                                    <a href="{{ route('profile.edit') }}">Profile</a>
                                 </li>
+
                                 <li>
-                                    <a href="{{ route('register') }}">Register</a>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a>
                                 </li>
                             </ul>
-                        @endauth
+                            <form id="logoutForm" action="{{ route('logout') }}" method="post" style="display: none;">
+                                @csrf
 
+                            </form>
+                        </div>
+                        @else
+                        <div class="user">
+                            <i class="lni lni-user"></i>
+                            Hello
+                        </div>
+                        <ul class="user-login">
+                            <li>
+                                <a href="{{ route('login') }}">Sign In</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('register') }}">Register</a>
+                            </li>
+                        </ul>
+                        @endauth
 
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <!-- End Topbar -->
         <!-- Start Header Middle -->
@@ -183,7 +183,7 @@
                                     </a>
                                 </div>
                                 <div class="cart-items">
-                                    <a href="javascript:void(0)" class="main-btn">
+                                    <a href="{{ route('cart') }}" class="main-btn">
                                         <i class="lni lni-cart"></i>
                                         <span class="total-items">2</span>
                                     </a>

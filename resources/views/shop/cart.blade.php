@@ -18,9 +18,7 @@
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>Subtotal</p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>Discount</p>
-                        </div>
+                        
                         <div class="col-lg-1 col-md-2 col-12">
                             <p>Remove</p>
                         </div>
@@ -47,11 +45,14 @@
                         <div class="col-lg-2 col-md-2 col-12">
                             <p>{{ $item->product->price_formatted }}</p>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-12">
-                            <p>$29.00</p>
-                        </div>
+                        
                         <div class="col-lg-1 col-md-2 col-12">
-                            <a class="remove-item" href="javascript:void(0)"><i class="lni lni-close"></i></a>
+                            <form action="{{ route('cart.destroy' , $item->id) }}" method="post">
+                                @csrf 
+                                @method('delete')
+                                
+                                <button type="submit" class="btn btn -sm btn-danger"><i class="fa-solid fa-trash"></i> Remove</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -81,10 +82,10 @@
                                         <li>Cart Subtotal<span>{{ $total }}</span></li>
                                         <li>Shipping<span>Free</span></li>
                                         
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li class="last">You Pay<span>{{ $total }}</span></li>
                                     </ul>
                                     <div class="button">
-                                        <a href="checkout.html" class="btn">Checkout</a>
+                                        <a href="{{ route('checkout') }}" class="btn">Checkout</a>
                                         <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
                                     </div>
                                 </div>

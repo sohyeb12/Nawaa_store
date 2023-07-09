@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,5 @@ Route::middleware(['auth' , 'auth.ensuretype:admin,super-admin'])->group(functio
     Route::delete('/admin/products/{product}/force', [ProductController::class, 'forceDelete'])->name('products.force-delete');
 
     Route::resource('/admin/products', ProductController::class);
+    Route::resource('/admin/orders', OrdersController::class);
 });
