@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
-
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $users = User::all()->toQuery()->paginate(5);
         return view('admin.users.index', [
             'title' => 'Users List',
@@ -27,26 +28,36 @@ class UserController extends Controller
         ]);
     }
 
-    public function show($first,$last= null){
+    public function show($first, $last = null)
+    {
         return $first . " " . $last;
     }
-    
-    public function create(){
+
+    public function create()
+    {
         return view('admin.users.create', [
             'user' => new User(),
-            'status_options' => User::status_option(), 
+            'status_options' => User::status_option(),
             'user_types' => User::user_types(),
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'type' => ['required','in:user,admin,super-admin'],
-            'status' => ['required','in:active,inactive,blocked'],
+            'type' => ['required', 'in:user,admin,super-admin'],
+            'status' => ['required', 'in:active,inactive,blocked'],
+            'image' => ['nullable', 'image', 'dimensions:min_width=400,min-height:300', 'max:1024'],
         ]);
+        // $path = '';
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads/images', 'public');
+            // $data['image'] = $path;
+        }
 
         $user = User::create([
             'name' => $request->name,
@@ -54,12 +65,14 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'type' => $request->type,
             'status' => $request->status,
+            'image' => $path,
         ]);
 
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Created");
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
 
         $user = User::findOrFail($id);
         return view('admin.users.edit', [
@@ -72,51 +85,69 @@ class UserController extends Controller
     // 'old_password' => ['required' , 'min:6' , 'max:100'],
     // 'new_password' => ['required' , 'confirmed' , Rules\Password::defaults()],
 
-    public function update(Request $request , $id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'type' => ['required','in:user,admin,super-admin'],
-            'status' => ['required','in:active,inactive,blocked'],
+            'type' => ['required', 'in:user,admin,super-admin'],
+            'status' => ['required', 'in:active,inactive,blocked'],
+            'image' => ['nullable', 'image', 'dimensions:min_width=400,min-height:300', 'max:1024'],
         ]);
 
         $user = User::findOrFail($id);
-        
+
+        // $path = '';
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $path = $file->store('uploads/images', 'public');
+            // $data['image'] = $path;
+        }
+        $old_image = $user->image;
+
+        if ($old_image && $old_image != $user->image) {
+            Storage::disk('public')->delete($old_image);
+        }
         $user->update([
             'email' => $request->input("email"),
             'name' =>  $request->input("name"),
             'type' =>   $request->input("type"),
-            'status' =>   $request->input("status"),
+            'status' =>  $request->input("status"),
+            'image' => $path,
         ]);
-    
+
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Updated");
     }
 
-    public function destroy(User $user){
+    public function destroy(User $user)
+    {
         $user->delete();
 
         return redirect()->route('users.index')->with('success', "User ({$user->name}) Deleted");
     }
 
-    public function trashed(){
+    public function trashed()
+    {
         $users = User::onlyTrashed()->paginate(5);
 
-        return view('admin.users.trashed' ,[
-            'users' => $users ,
+        return view('admin.users.trashed', [
+            'users' => $users,
         ]);
     }
 
-    public function restore($id){
+    public function restore($id)
+    {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
         return redirect()->route('users.index')
-        ->with('success', "User ({$user->name}) Restored");
+            ->with('success', "User ({$user->name}) Restored");
     }
 
-    public function forceDelete($id){
+    public function forceDelete($id)
+    {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->forceDelete();
         return redirect()->route('users.index')
-        ->with('success', "User ({$user->name}) Deleted forever!");
+            ->with('success', "User ({$user->name}) Deleted forever!");
     }
 }

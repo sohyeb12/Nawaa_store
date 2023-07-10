@@ -2,10 +2,13 @@
 
 namespace App\View\Components;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use NumberFormatter;
 
 class ShopLayout extends Component
 {
@@ -29,8 +32,18 @@ class ShopLayout extends Component
                     ->latest()
                     ->limit(8)
                     ->get();
+        
+        $cart = Cart::where('user_id' , '=' , Auth::id())->get();
+        // dd($cart);
+        $total = $cart->sum(function($item){
+            return $item->product->price * $item->quantity;
+        });
+
+        $formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
         return view('layouts.shop', [
             'products' => $products,
+            'carts' => $cart,
+            'totalPriceFormat' => $formatter->formatCurrency($total,'USD'),
         ]);
     }
 }

@@ -23,6 +23,19 @@ class Product extends Model
         'short_description' , 'category_id' , 'status','image','user_id'
     ];
 
+
+    protected $appends = [
+        'image_url',
+        'price_formatted',
+        'compare_price_formatted',
+
+    ];
+
+    protected $hidden = [
+        'image',
+        'updated_at',
+        'deleted_at',
+    ];
     // protected static function booted()
     // {
     //     // booted function applied a global scope for the queries 
@@ -115,5 +128,9 @@ class Product extends Model
 
     public function gallery(){
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class)->withDefault();
     }
 }

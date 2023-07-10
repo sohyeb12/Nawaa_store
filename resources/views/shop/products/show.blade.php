@@ -185,7 +185,7 @@
                             @foreach($reviews as $review)
                             <!-- Start Single Review -->
                             <div class="single-review">
-                                <img src="https://via.placeholder.com/150x150" alt="#">
+                                <img src="{{ $review->user->image_url }}" alt="#">
                                 <div class="review-info">
                                     <h4>
                                         {{ $review->user->name }}
@@ -241,13 +241,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="review-name">Your Name</label>
-                                    <input class="form-control" value="{{ Auth::user()->profile->first_name }}" type="text" id="review-name" required>
+                                    <input class="form-control" value="{{ Auth::user()?->profile->first_name }}" type="text" id="review-name" required>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="review-email">Your Email</label>
-                                    <input class="form-control" value="{{ Auth::user()->email }}" type="email" id="review-email" required>
+                                    <input class="form-control" value="{{ Auth::user()?->email }}" type="email" id="review-email" required>
                                 </div>
                             </div>
                         </div>

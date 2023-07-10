@@ -19,7 +19,7 @@
                             <p>Subtotal</p>
                         </div>
                         
-                        <div class="col-lg-1 col-md-2 col-12">
+                        <div class="col-lg-1 col-md-1 col-12">
                             <p>Remove</p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                             <p>{{ $item->product->price_formatted }}</p>
                         </div>
                         
-                        <div class="col-lg-1 col-md-2 col-12">
+                        <div class="col-lg-1 col-md-1 col-12">
                             <form action="{{ route('cart.destroy' , $item->id) }}" method="post">
                                 @csrf 
                                 @method('delete')
@@ -64,7 +64,7 @@
                     <!-- Total Amount -->
                     <div class="total-amount">
                         <div class="row">
-                            <div class="col-lg-8 col-md-6 col-12">
+                            <!-- <div class="col-lg-8 col-md-6 col-12">
                                 <div class="left">
                                     <div class="coupon">
                                         <form action="#" target="_blank">
@@ -75,12 +75,11 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
                                         <li>Cart Subtotal<span>{{ $total }}</span></li>
-                                        <li>Shipping<span>Free</span></li>
                                         
                                         <li class="last">You Pay<span>{{ $total }}</span></li>
                                     </ul>

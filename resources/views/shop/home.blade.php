@@ -279,7 +279,7 @@
         <!-- End Features Area -->
 
         <!-- Start Trending Product Area -->
-        <x-trending-products title="Trending Products!!" count="6" />
+        <x-trending-products title="Trending Products!!" count="8" />
         <!-- End Trending Product Area -->
 
         <!-- Start Banner Area -->

@@ -185,42 +185,45 @@
                                 <div class="cart-items">
                                     <a href="{{ route('cart') }}" class="main-btn">
                                         <i class="lni lni-cart"></i>
-                                        <span class="total-items">2</span>
+                                        <span class="total-items">{{ $carts->count() }}</span>
                                     </a>
                                     <!-- Shopping Item -->
                                     <div class="shopping-item">
                                         <div class="dropdown-cart-header">
-                                            <span>2 Items</span>
-                                            <a href="cart.html">View Cart</a>
+                                            <span>{{ $carts->count() }} Items</span>
+                                            <a href="{{ route('cart') }}">View Cart</a>
                                         </div>
-                                        <ul class="shopping-list">
-                                            <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
-                                                <div class="cart-img-head">
-                                                    <a class="cart-img" href="product-details.html"><img src="{{ asset('assets/images/header/cart-items/item1.jpg') }}" alt="#"></a>
-                                                </div>
+                                        
+                                        @if(!is_null($carts))
+                                        <div class="scrollable">
+                                            <ul class="shopping-list">
+                                                @foreach($carts as $item)
+                                                <li>
+                                                    <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
+                                                    <div class="cart-img-head">
+                                                        <a class="cart-img" href="product-details.html"><img src="{{ $item->product->image_url }}" alt="#"></a>
+                                                    </div>
 
-                                                <div class="content">
-                                                    <h4><a href="product-details.html">
-                                                            Apple Watch Series 6</a></h4>
-                                                    <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                                </div>
-                                            </li>
+                                                    <div class="content">
+                                                        <h4><a href="product-details.html">
+                                                                {{ $item->product->name }}</a></h4>
+                                                        <p class="quantity">1x - <span class="amount">{{ $item->product->price_formatted }}</span></p>
+                                                    </div>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @else
+                                        <ul>
                                             <li>
-                                                <a href="javascript:void(0)" class="remove" title="Remove this item"><i class="lni lni-close"></i></a>
-                                                <div class="cart-img-head">
-                                                    <a class="cart-img" href="product-details.html"><img src="{{ asset('assets/images/header/cart-items/item2.jpg') }}" alt="#"></a>
-                                                </div>
-                                                <div class="content">
-                                                    <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                                    <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                                </div>
+                                                Empty Carts
                                             </li>
                                         </ul>
+                                        @endif
                                         <div class="bottom">
                                             <div class="total">
                                                 <span>Total</span>
-                                                <span class="total-amount">$134.00</span>
+                                                <span class="total-amount">{{ $totalPriceFormat }}</span>
                                             </div>
                                             <div class="button">
                                                 <a href="checkout.html" class="btn animate">Checkout</a>

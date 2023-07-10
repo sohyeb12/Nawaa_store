@@ -15,7 +15,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
         $cookie_id = $request->cookie('cart_id');
-        $cart = Cart::with('product')->where('cooke_id', '=', $cookie_id)->get();
+        $cart = Cart::with('product')->where('cooke_id', '=', $cookie_id)->where('user_id', '=', Auth::id())->get();
         
         // $total = 0;
         // foreach($cart as $item){
@@ -49,8 +49,9 @@ class CartController extends Controller
 
         $item = Cart::where('cooke_id', '=', $cookie_id)
             ->where('product_id', '=', $request->input('product_id'))
+            ->where('user_id', '=', Auth::id())
             ->first();
-
+        // dd($cookie_id , Auth::id() , $item);
         if ($item) {
             $item->increment('quantity', $request->input('quantity', 1));
         } else {

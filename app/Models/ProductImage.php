@@ -13,6 +13,16 @@ class ProductImage extends Model
     protected $fillable = [
         'product_id','image',
     ];
+
+    protected $appends = [
+        'url',
+    ];
+
+    protected $hidden = [
+        'image',
+        'updated_at',
+        'deleted_at',
+    ];
     public function getUrlAttribute()
     {
         return Storage::disk('public')->url($this->image);

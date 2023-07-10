@@ -6,6 +6,7 @@ use App\Models\Product;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class GridProducts extends Component
 {
@@ -15,7 +16,7 @@ class GridProducts extends Component
     public $products;
     public $title; 
 
-    public function __construct($title = '' , $count = 14)
+    public function __construct($title = '' , $count = 14  )
     {
         $this->products = Product::active()
         ->take($count)

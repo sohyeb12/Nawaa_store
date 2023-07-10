@@ -7,79 +7,24 @@
                     <!-- Start Single Widget -->
                     <div class="single-widget search">
                         <h3>Search Product</h3>
-                        <form action="#">
-                            <input type="text" placeholder="Search Here...">
+                        <form action="{{}}">
+                            <input type="text" name="search" placeholder="Search Here...">
                             <button type="submit"><i class="lni lni-search-alt"></i></button>
                         </form>
                     </div>
                     <!-- End Single Widget -->
-                    <!-- Start Single Widget -->
-                    <div class="single-widget">
-                        <h3>All Categories</h3>
-                        <ul class="list">
-                            <li>
-                                <a href="product-grids.html">Computers & Accessories </a><span>(1138)</span>
-                            </li>
-                            <li>
-                                <a href="product-grids.html">Smartphones & Tablets</a><span>(2356)</span>
-                            </li>
-                            <li>
-                                <a href="product-grids.html">TV, Video & Audio</a><span>(420)</span>
-                            </li>
-                            <li>
-                                <a href="product-grids.html">Cameras, Photo & Video</a><span>(874)</span>
-                            </li>
-                            <li>
-                                <a href="product-grids.html">Headphones</a><span>(1239)</span>
-                            </li>
-                            <li>
-                                <a href="product-grids.html">Wearable Electronics</a><span>(340)</span>
-                            </li>
-                            <li>
-                                <a href="product-grids.html">Printers & Ink</a><span>(512)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Single Widget -->
+
                     <!-- Start Single Widget -->
                     <div class="single-widget range">
                         <h3>Price Range</h3>
-                        <input type="range" class="form-range" name="range" step="1" min="100" max="10000" value="10" onchange="rangePrimary.value=value">
+                        <input type="range" class="form-range" name="range" step="1" min="100" max="1000" onchange="rangePrimary.value=value">
                         <div class="range-inner">
                             <label>$</label>
                             <input type="text" id="rangePrimary" placeholder="100" />
                         </div>
                     </div>
                     <!-- End Single Widget -->
-                    <!-- Start Single Widget -->
-                    <div class="single-widget condition">
-                        <h3>Filter by Price</h3>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-                            <label class="form-check-label" for="flexCheckDefault1">
-                                $50 - $100L (208)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-                            <label class="form-check-label" for="flexCheckDefault2">
-                                $100L - $500 (311)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-                            <label class="form-check-label" for="flexCheckDefault3">
-                                $500 - $1,000 (485)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
-                            <label class="form-check-label" for="flexCheckDefault4">
-                                $1,000 - $5,000 (213)
-                            </label>
-                        </div>
-                    </div>
-                    <!-- End Single Widget -->
+                    
                     <!-- Start Single Widget -->
                     <div class="single-widget condition">
                         <h3>Filter by Brand</h3>
@@ -151,7 +96,7 @@
                                         <option>A - Z Order</option>
                                         <option>Z - A Order</option>
                                     </select>
-                                    <h3 class="total-show-product">Showing: <span>1 - 12 items</span></h3>
+                                    <h3 class="total-show-product">Showing: <span>1 - 6 items</span></h3>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-4 col-12">
