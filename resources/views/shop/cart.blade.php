@@ -30,7 +30,7 @@
                 <div class="cart-single-list">
                     <div class="row align-items-center">
                         <div class="col-lg-1 col-md-1 col-12">
-                            <a href="{{ route('shop.products.show', $item->product->slug) }}"><img src="{{ $item->product->image_url }}" alt="#"></a>
+                            <a href="{{ route('shop.products.show', $item->product?->slug) }}"><img src="{{ $item->product->image_url }}" alt="#"></a>
                         </div>
                         <div class="col-lg-4 col-md-3 col-12">
                             <h5 class="product-name"><a href="{{ route('shop.products.show', $item->product->slug) }}">
@@ -39,7 +39,8 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">
                             <div class="count-input">
-                                <input class="form-control" name="quantity" value="{{ $item->quantity }}" > 
+                                <!-- <input class="form-control" name="quantity" value="" >  -->
+                                <p>{{ $item->quantity }}</p>
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-12">

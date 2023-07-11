@@ -77,7 +77,7 @@ class OrdersController extends Controller
         $order->status = $request->input('status');
         $order->save();
 
-        return redirect()->route('orders.index')->with('tm',"Order ({$order->name}) Updated.");
+        return redirect()->route('orders.index')->with('tm',"Order ({$order->id}) Updated.");
     }
 
     /**

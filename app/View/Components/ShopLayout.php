@@ -36,10 +36,11 @@ class ShopLayout extends Component
         $cart = Cart::where('user_id' , '=' , Auth::id())->get();
         // dd($cart);
         $total = $cart->sum(function($item){
-            return $item->product->price * $item->quantity;
+            return ($item->product->price ?? 0) * ($item->quantity ?? 0);
         });
 
         $formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
+        
         return view('layouts.shop', [
             'products' => $products,
             'carts' => $cart,

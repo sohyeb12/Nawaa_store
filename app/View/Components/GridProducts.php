@@ -16,9 +16,9 @@ class GridProducts extends Component
     public $products;
     public $title; 
 
-    public function __construct($title = '' , $count = 14  )
+    public function __construct(Product $product = new Product() , $title = '' , $count = 14  )
     {
-        $this->products = Product::active()
+        $this->products = $product->active()
         ->take($count)
         ->paginate(6);
         $this->title = $title;

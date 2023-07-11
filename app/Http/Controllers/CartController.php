@@ -16,14 +16,14 @@ class CartController extends Controller
     {
         $cookie_id = $request->cookie('cart_id');
         $cart = Cart::with('product')->where('cooke_id', '=', $cookie_id)->where('user_id', '=', Auth::id())->get();
-        
+        // dd($cart);
         // $total = 0;
         // foreach($cart as $item){
         //     $total += $item->product->price * $item->quantity;
         // }
 
         $total = $cart->sum(function($item){
-            return $item->product->price * $item->quantity;
+            return ($item->product->price ?? 0 ) * ($item->quantity ?? 0);
         });
 
         $formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
@@ -51,7 +51,7 @@ class CartController extends Controller
             ->where('product_id', '=', $request->input('product_id'))
             ->where('user_id', '=', Auth::id())
             ->first();
-        // dd($cookie_id , Auth::id() , $item);
+        // dd($item);
         if ($item) {
             $item->increment('quantity', $request->input('quantity', 1));
         } else {

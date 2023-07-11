@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CartsController;
+use App\Http\Controllers\Api\V1\CategoriesController;
+use App\Http\Controllers\Api\V1\OrdersController;
 use App\Http\Controllers\Api\V1\ProductsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('products',ProductsController::class); // 5 routes 
+Route::apiResource('categories',CategoriesController::class); // 5 routes 
+Route::apiResource('orders',OrdersController::class); // 5 routes 
+Route::apiResource('carts',CartsController::class); // 5 routes 

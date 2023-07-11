@@ -45,7 +45,7 @@ class CheckoutController extends Controller
         
 
         $cookie_id = $request->cookie('cart_id');
-        $cart = Cart::with('product')->where('cooke_id', '=', $cookie_id)->get();
+        $cart = Cart::with('product')->where('cooke_id', '=', $cookie_id)->where('user_id' , '=' , Auth::id())->get();
 
         $total = $cart->sum(function($item){
             return $item->product->price * $item->quantity;
@@ -71,7 +71,7 @@ class CheckoutController extends Controller
         }
 
         // Delete cart items 
-        // Cart::where('cooke_id','=',$cookie_id)->delete();
+        Cart::where('cooke_id','=',$cookie_id)->where('user_id' , '=' , Auth::id())->delete();
 
         DB::commit();
 
@@ -79,7 +79,7 @@ class CheckoutController extends Controller
         DB::rollBack();
         return back()
         ->withInput()
-        ->wuthErrors([
+        ->withErrors([
             'error'=> $e->getMessage()
         ])
         ->with('error', $e->getMessage());

@@ -8,7 +8,7 @@
                     <div class="checkout-steps-form-style-1">
                         @if(session()->has('error'))
                         <div class="alert alert-danger">
-                            {{ session->get('error') }}
+                            {{ session()->get('error') }}
                         </div>
                         @endif
                         <form action="{{ route('checkout.store') }}" method="post">
