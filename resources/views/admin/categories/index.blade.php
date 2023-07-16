@@ -25,6 +25,7 @@
             <th>Name</th>
             <th>Created_at</th>
             <th>Products #</th>
+            <th>Category Image</th>
             <th></th>
             <th></th>
         </tr>
@@ -36,6 +37,12 @@
             <td>{{ $cateogry->name }}</td>
             <td>{{ $cateogry->created_at }}</td>
             <td>{{ $cateogry->products_count }}</td>
+            <td>
+                <a href="{{ $cateogry->image_url }}">
+                    <img src="{{ $cateogry->image_url }}" alt="" width="60">
+                </a>
+
+            </td>
 
             <td><a href="{{ route('categories.edit', $cateogry->id) }}" class="btn btn -sm btn-outline-dark"><i class="fas fa-edit"></i> Edit</a> </td>
             <td>

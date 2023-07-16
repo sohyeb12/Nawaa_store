@@ -2,10 +2,12 @@
 
 namespace App\View\Components;
 
+use App\Models\Category;
 use App\Models\Product;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class GridProducts extends Component
@@ -16,7 +18,7 @@ class GridProducts extends Component
     public $products;
     public $title; 
 
-    public function __construct(Product $product = new Product() , $title = '' , $count = 14  )
+    public function __construct( $product = new Product() , $title = '' , $count = 14  )
     {
         $this->products = $product->active()
         ->take($count)
@@ -29,7 +31,9 @@ class GridProducts extends Component
      */
     public function render(): View|Closure|string
     {
-
-        return view('components.grid-products');
+        $categories = Category::all();
+        return view('components.grid-products',[
+            'categories' => $categories,
+        ]);
     }
 }

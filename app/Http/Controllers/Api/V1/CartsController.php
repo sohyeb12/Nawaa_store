@@ -29,7 +29,8 @@ class CartsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cart = Cart::findOrFail($id);
+        return $cart;
     }
 
     /**
@@ -45,6 +46,10 @@ class CartsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Cart::findOrFail($id)->delete();
+
+        return [
+            'message' => "Cart deleted successfully",
+        ];
     }
 }

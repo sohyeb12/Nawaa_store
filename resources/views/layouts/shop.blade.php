@@ -134,7 +134,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-3 col-7">
                         <!-- Start Header Logo -->
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="{{ route('home') }}">
                             <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
@@ -207,7 +207,7 @@
                                                     <div class="content">
                                                         <h4><a href="product-details.html">
                                                                 {{ $item->product?->name }}</a></h4>
-                                                        <p class="quantity">1x - <span class="amount">{{ $item->product?->price_formatted }}</span></p>
+                                                        <p class="quantity">{{ $item->quantity }}x - <span class="amount">{{ $item->product?->price_formatted }}</span></p>
                                                     </div>
                                                 </li>
                                                 @endforeach
@@ -240,6 +240,7 @@
         </div>
         <!-- End Header Middle -->
         <!-- Start Header Bottom -->
+        
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8 col-md-6 col-12">
@@ -248,31 +249,19 @@
                         <div class="mega-category-menu">
                             <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                             <ul class="sub-category">
-                                <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
+                                
+                                @foreach($categories as $value)
+                                <li><a href="product-grids.html">@if($value->products_count) {{ $value->name }}  <i class="lni lni-chevron-right"></i></a>
                                     <ul class="inner-sub-category">
-                                        <li><a href="product-grids.html">Digital Cameras</a></li>
-                                        <li><a href="product-grids.html">Camcorders</a></li>
-                                        <li><a href="product-grids.html">Camera Drones</a></li>
-                                        <li><a href="product-grids.html">Smart Watches</a></li>
-                                        <li><a href="product-grids.html">Headphones</a></li>
-                                        <li><a href="product-grids.html">MP3 Players</a></li>
-                                        <li><a href="product-grids.html">Microphones</a></li>
-                                        <li><a href="product-grids.html">Chargers</a></li>
-                                        <li><a href="product-grids.html">Batteries</a></li>
-                                        <li><a href="product-grids.html">Cables & Adapters</a></li>
+                                        @foreach($value->products as $temp)
+                                            <li><a href="{{ route('shop.products.show' , $temp->slug) }}">{{ $temp->name }}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="product-grids.html">accessories</a></li>
-                                <li><a href="product-grids.html">Televisions</a></li>
-                                <li><a href="product-grids.html">best selling</a></li>
-                                <li><a href="product-grids.html">top 100 offer</a></li>
-                                <li><a href="product-grids.html">sunglass</a></li>
-                                <li><a href="product-grids.html">watch</a></li>
-                                <li><a href="product-grids.html">man’s product</a></li>
-                                <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                                <li><a href="product-grids.html">Computers & Tablets </a></li>
-                                <li><a href="product-grids.html">Video Games </a></li>
-                                <li><a href="product-grids.html">Home Appliances </a></li>
+                                @else
+                                <li><a href="{{ route('shop.products.show' , $temp->slug) }}">{{ $value->name }}</a></li>
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                         <!-- End Mega Category Menu -->
@@ -286,39 +275,19 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a href="index.html" aria-label="Toggle navigation">Home</a>
+                                        <a href="{{ route('home') }}" aria-label="Toggle navigation">Home</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="dd-menu active collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Pages</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-2">
-                                            <li class="nav-item active"><a href="about-us.html">About Us</a></li>
-                                            <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                            <li class="nav-item"><a href="login.html">Login</a></li>
-                                            <li class="nav-item"><a href="register.html">Register</a></li>
-                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                        </ul>
-                                    </li>
+
                                     <li class="nav-item">
                                         <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Shop</a>
                                         <ul class="sub-menu collapse" id="submenu-1-3">
                                             <li class="nav-item"><a href="{{ route('grid.products') }}">Shop Grid</a></li>
                                             <li class="nav-item"><a href="product-list.html">Shop List</a></li>
-                                            <li class="nav-item"><a href="product-details.html">shop Single</a></li>
-                                            <li class="nav-item"><a href="cart.html">Cart</a></li>
-                                            <li class="nav-item"><a href="checkout.html">Checkout</a></li>
+                                            <li class="nav-item"><a href="{{ route('cart') }}">Cart</a></li>
+                                            <li class="nav-item"><a href="{{ route('checkout') }}">Checkout</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-4">
-                                            <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
-                                            </li>
-                                            <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
-                                            <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
-                                                    Sibebar</a></li>
-                                        </ul>
-                                    </li>
+
                                     <li class="nav-item">
                                         <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
                                     </li>

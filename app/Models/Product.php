@@ -133,4 +133,15 @@ class Product extends Model
     public function user(){
         return $this->belongsTo(User::class)->withDefault();
     }
+
+    public function ComputeAverage($id){
+        $num = Review::select('review_rating')->where('product_id' , '=' , $id)->count();
+        $sum = Review::where('product_id' , '=' , $id)->sum('review_rating');
+        
+        if($num > 0 )
+            return number_format( (($sum/($num  * 5)) * 5),1);
+        else 
+            return 0;
+
+    }
 }

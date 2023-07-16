@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Product;
 use Closure;
 use Illuminate\View\Component;
@@ -41,10 +42,13 @@ class ShopLayout extends Component
 
         $formatter = new NumberFormatter('en', NumberFormatter::CURRENCY);
         
+        $categories = Category::withCount('products')->get();
+
         return view('layouts.shop', [
             'products' => $products,
             'carts' => $cart,
             'totalPriceFormat' => $formatter->formatCurrency($total,'USD'),
+            'categories'=> $categories,
         ]);
     }
 }
