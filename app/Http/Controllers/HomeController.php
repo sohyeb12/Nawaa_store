@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -56,6 +58,18 @@ class HomeController extends Controller
         return view('shop.grid', [
             'products' => $products,
             'categories' => $categories,
+        ]);
+    }
+
+    public function about_us(){
+        $users = User::when(true , function($query){
+            $query->where('type', '=', "super-admin")
+                    ->orWhere('type', '=', "admin");
+        })->get();
+
+        // dd($users);
+        return view('shop.about_us',[
+            'users' => $users,
         ]);
     }
 }

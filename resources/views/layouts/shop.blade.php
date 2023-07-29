@@ -81,8 +81,8 @@
                         <div class="top-middle">
                             <ul class="useful-links">
                                 <li><a href="{{ route('home') }}">Home</a></li>
-                                <li><a href="about-us.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="{{ route('about_us') }}">About Us</a></li>
+                                <li><a href="{{ route('communications.create') }}">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                             <div class="nav-hotline">
                                 <i class="lni lni-phone"></i>
                                 <h3>Hotline:
-                                    <span>(+100) 123 456 7890</span>
+                                    <span>(+972) 59 570 9863</span>
                                 </h3>
                             </div>
                             <div class="navbar-cart">
@@ -289,7 +289,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="contact.html" aria-label="Toggle navigation">Contact Us</a>
+                                        <a href="{{ route('communications.create') }}" aria-label="Toggle navigation">Contact Us</a>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
@@ -303,7 +303,7 @@
                         <h5 class="title">Follow Us:</h5>
                         <ul>
                             <li>
-                                <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                                <a href="https://www.facebook.com/emad.jarwan.9"><i class="lni lni-facebook-filled"></i></a>
                             </li>
                             <li>
                                 <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
@@ -432,8 +432,8 @@
                             <div class="single-footer f-link">
                                 <h3>Information</h3>
                                 <ul>
-                                    <li><a href="javascript:void(0)">About Us</a></li>
-                                    <li><a href="javascript:void(0)">Contact Us</a></li>
+                                    <li><a href="{{ route('about_us') }}">About Us</a></li>
+                                    <li><a href="{{ route('communications.create') }}">Contact Us</a></li>
                                     <li><a href="javascript:void(0)">Downloads</a></li>
                                     <li><a href="javascript:void(0)">Sitemap</a></li>
                                     <li><a href="javascript:void(0)">FAQs Page</a></li>

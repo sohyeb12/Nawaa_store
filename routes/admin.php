@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CommunicationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth' , 'auth.ensuretype:admin,super-admin'])->group(function () {
@@ -16,8 +17,8 @@ Route::middleware(['auth' , 'auth.ensuretype:admin,super-admin'])->group(functio
 
     Route::resource('/admin/categories', CategoryController::class);
 
-    //Products Routes
 
+    //Products Routes
     Route::get('/admin/products/trashed', [ProductController::class, 'trashed'])->name('products.trashed');
 
     Route::put('/admin/products/{product}/restore', [ProductController::class, 'restore'])->name('products.restore');
@@ -26,4 +27,8 @@ Route::middleware(['auth' , 'auth.ensuretype:admin,super-admin'])->group(functio
 
     Route::resource('/admin/products', ProductController::class);
     Route::resource('/admin/orders', OrdersController::class);
+
+    //communication
+
+    Route::get('admin/communications',[CommunicationController::class, 'index'])->name('communications.index');
 });

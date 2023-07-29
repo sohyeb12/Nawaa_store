@@ -219,6 +219,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <p>Orders Page</p>
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('communications.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Communications Page</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
